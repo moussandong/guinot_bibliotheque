@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CDRom{% endblock %}
+
+{% block body %}
+    <h1>CDRom</h1>
+
+    
+            <dl class="row">
+               <dt class="col-2">Id</dt>
+                <dd class="col-10">{{ c_d_rom.id }}</dd>
+               <dt class="col-2">Title</dt>
+                <dd class="col-10">{{ c_d_rom.title }}</dd>
+               <dt class="col-2">Cote</dt>
+                <dd class="col-10">{{ c_d_rom.cote }}</dd>
+               <dt class="col-2">Availability</dt>
+                <dd class="col-10">{{ c_d_rom.availability ? 'Yes' : 'No' }}</dd>
+               <dt class="col-2">Picture</dt>
+                <dd class="col-10">{{ c_d_rom.picture }}</dd>
+               <dt class="col-2">Authtor</dt>
+                <dd class="col-10">{{ c_d_rom.authtor }}</dd>
+               <dt class="col-2">Bail</dt>
+                <dd class="col-10">{{ c_d_rom.bail }}</dd>
+            </dl>
+
+    <a href="{{ path('CD_index') }}">back to list</a>
+
+    <a href="{{ path('c_d_rom_edit', {'id': c_d_rom.id}) }}">edit</a>
+
+    {{ include('cd_rom/_delete_form.html.twig') }}
+{% endblock %}

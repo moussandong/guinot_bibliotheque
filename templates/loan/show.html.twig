@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Loan{% endblock %}
+
+{% block body %}
+    <h1>Emprunt {{loan.id}}</h1>
+
+            <dl class="row">
+                <dt class="col-2">User</dt>
+                <dd class="col-10">User (link)</dd>
+                <dt class="col-2">Resources</dt>
+                <dd class="col-10">Resources (list/link)</dd>
+                <dt class="col-2">CreatedAt</dt>
+                <dd class="col-10">{{ loan.createdAt ? loan.createdAt|date('Y-m-d H:i:s') : '' }}</dd>
+                <dt class="col-2">UdatedAt</dt>
+                <dd class="col-10">{{ loan.udatedAt ? loan.udatedAt|date('Y-m-d H:i:s') : '' }}</dd>
+                <dt class="col-2">Searchable</dt>
+                <dd class="col-10">{{ loan.searchable ? 'Yes' : 'No' }}</dd>
+                <dt class="col-2">Status</dt>
+                <dd class="col-10">{{ loan.status ? 'Yes' : 'No' }}</dd>
+            </dl>
+
+    <a class="btn btn-primary" href="{{ path('loan_index') }}">back to list</a>
+
+    <a class="btn btn-primary" href="{{ path('loan_edit', {'id': loan.id}) }}">edit</a>
+
+    {{ include('loan/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	CDRom index
+{% endblock %}
+
+{% block body %}
+
+	<div style="background-color:  #70A99E">
+
+		<div class="container">
+			{{ form_start(form) }}
+			<div class="form-row align-items-end">
+				<div class="col">
+					{{ form_row(form.titre) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.cote) }}
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<button class="btn btn-primary">
+							Rechercher
+						</button>
+					</div>
+				</div>
+			</div>
+			{% do form.author.setRendered() %}
+			{{ form_end(form) }}
+		</div>
+	</div>
+
+
+	<h1 class="mb-4 mt-3">
+		Nos CD-ROM
+	</h1>
+
+
+	{% include "shared/table.html.twig" with {"titles" : ["title","cote","availability","authtor","bail","action"], "items": c_d_roms,"detail": "c_d_rom_show", "edit": "c_d_rom_edit"} %}
+
+	{% if is_granted('ROLE_VOLONTEER') %}
+		<a class="btn btn-warning" href="{{ path('c_d_rom_new') }}">
+			Create new
+		</a>
+	{% endif %}
+	<div class="mt-5 pt-1 container">
+		<div class="align-self-center">
+			{{ knp_pagination_render(c_d_roms) }}
+		</div>
+	</div>
+{% endblock body %}
+{% block javascripts %}
+	<script>
+		{% include "filter/_filters.js" %}</script>
+{% endblock %}

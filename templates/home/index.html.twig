@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Guinot bibliotheque
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		body {
+			background-color: #70A99E;
+		}
+		.responsive {
+			width: 100%;
+			height: auto;
+		}
+	</style>
+
+	<div  style="background-color: #70A99E mb-10">
+		<h1 class="display-3 mt-15 mb-5">
+			Bienvenue sur bibliothèque Guinot! 
+		</h1>
+		{% if not app.user %}
+			<a type="button" class="btn btn-warning btn-lg" style=" position: relative; float: right;" href="{{path('app_login')}}">
+				Connexion
+			</a>
+		{% endif %}
+		<p class="lead">
+			De nombreuses ouvrages à venir decouvrir dans nos base de donnés.
+		</p>
+		<hr class="my-4">
+		<p class="lead">
+			<a class="btn btn-danger" href="{{path('livre_index')}}" role=" button">
+				Livres
+			</a>
+
+			<a class="btn btn-success" href="{{path('CD_index')}}" role="button">
+				Cd-Rom
+			</a>
+
+			<a class="btn btn-info" href="{{path('news_paper_index')}}" role="button">
+				Journaux
+			</a>
+
+			<a class="btn btn-secondary" href="{{path('micro_film_index')}}" role=" button">
+				Micro Films
+			</a>
+		</p>
+	</div>
+
+	
+		<div class="example-wrapper">
+			{% if app.user %}
+				<h1>
+					✅	Bonjour
+					{{ app.user.firstname }}
+					!
+					<img src="image/2360.jpg" alt="picturesalonbibliotheque" class="responsive"/>
+
+				</h1>
+				<p>
+					{% for role in app. user.roles %}
+						{% if role == "ROLE_USER" %}
+							User
+						{% elseif role == "ROLE_ADMIN" %}
+							Administrator
+						{% endif %}
+					{% endfor %}
+				</p>
+			{% else %}
+
+
+				<img src="image/2360.jpg" alt="picturesalonbibliotheque" class="responsive"/>
+
+
+			{% endif %}
+		</div>
+	
+{% endblock %}

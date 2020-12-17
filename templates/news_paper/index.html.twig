@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	NewsPaper index
+{% endblock %}
+
+{% block body %}
+
+
+	<div style="background-color:  #70A99E">
+
+		<div class="container">
+			{{ form_start(form) }}
+			<div class="form-row align-items-end">
+				<div class="col">
+					{{ form_row(form.titre) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.cote) }}
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<button class="btn btn-primary">
+							Rechercher
+						</button>
+					</div>
+				</div>
+			</div>
+			{% do form.author.setRendered() %}
+			{{ form_end(form) }}
+		</div>
+	</div>
+
+	<h1 class="mb-4 mt-3">
+		Nos journaux
+	</h1>
+
+	{% include "shared/table.html.twig" with {"titles" : ["title","cote","availability","createdAt","action"], "items": news_papers,"detail": "news_paper_show", "edit": "news_paper_edit"} %}
+
+	<div class="mb-5 mt-3">
+		{% if is_granted('ROLE_VOLONTEER') %}
+			<a class="btn btn-warning" href="{{ path('news_paper_new') }}">
+				Create new
+			</a>
+		{% endif %}
+	</div>
+	{{ knp_pagination_render(news_papers) }}
+{% endblock %}

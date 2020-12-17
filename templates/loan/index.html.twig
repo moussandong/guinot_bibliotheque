@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Loan index
+{% endblock %}
+
+{% block body %}
+
+
+	<h1 class="mb-4 mt-3">
+		Emprunts
+	</h1>
+
+
+	<table class="table table-bordered">
+		<thead class="thead-dark">
+			<tr class="table">
+
+				<th>
+					User
+				</th>
+				<th>
+					CreatedAt
+				</th>
+				<th>
+					UdatedAt
+				</th>
+				<th>
+					Status
+				</th>
+				<th>
+					actions
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+
+
+			{% for loan in loans %}
+				<tr
+					class="table-warning">
+
+					{#<td>{{ loan.id }}</td>#}
+					<td>
+						<a href="{{path('user_show', {'id':loan.user.id} )}}">
+							{{loan.user.firstname}}
+						</a>
+					</td>
+					<td>
+						{{ loan.createdAt ? loan.createdAt|date('Y-m-d H:i:s') : '' }}
+					</td>
+					<td>
+						{{ loan.udatedAt ? loan.udatedAt|date('Y-m-d H:i:s') : '' }}
+					</td>
+					<td>
+						{{ loan.status ? 'Yes' : 'No' }}
+					</td>
+
+
+					<td>
+						<a class="btn btn-primary" href="{{ path('loan_show', {'id': loan.id}) }}">
+							show
+						</a>
+						<a class="btn btn-success" href="{{ path('loan_edit', {'id': loan.id}) }}">
+							edit
+						</a>
+
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6">
+						no records found
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+
+	{# include "shared/table.html.twig" with {"titles" : ["user","createdAt","udatedAt","status","action"], "items": loans,"detail": "loan_show", "edit": "loan_edit", "user": "user_show"} #}
+
+{% endblock %}
+{% block javascripts %}
+	<script>
+		{% include "filter/_filters.js" %}</script>
+
+</script>{% endblock %}

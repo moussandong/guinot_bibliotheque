@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index
+{% endblock %}
+
+{% block body %}
+
+
+	<h1 class="mb-4 mt-3">User index</h1>
+
+	<table class="table" id="lstindex">
+		<thead>
+<tr class="table-warning">
+
+				<th>Id</th>
+				<th>Roles</th>
+				<th>FirstName</th>
+				<th>LastName</th>
+				<th>Date de création</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in users %}
+<tr class="table-warning">
+
+					<td>{{ user.id }}</td>
+					<td>
+						{% for role in user.roles %}
+							{% if role == "ROLE_USER" %}
+								Utilisateur
+							{% elseif role == "ROLE_VOLONTEER" %}
+								Benevol
+							{% elseif role == "ROLE_GEST" %}
+								Gestionnaire
+							{% elseif role == "ROLE_ADMIN" %}
+								Administrateur
+							{% endif %}
+						{% endfor %}
+					</td>
+					{#<td>{{ user.roles ? user.roles|json_encode : '' }}</td>#}
+					
+					<td>{{ user.firstName }}</td>
+					<td>{{ user.lastName }}</td>
+					<td>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</td>
+					<td>
+						<a class="btn btn-primary" href="{{ path('user_show', {'id': user.id}) }}">show</a>
+						<a class="btn btn-success" href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="12">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a class="btn btn-warning" href="{{ path('user_new') }}">Create new</a>
+	{{ knp_pagination_render(users) }}
+
+{% endblock %}
+{% block javascripts %}
+	<script>
+		{% include "filter/_filters.js" %}</script>
+	
+{% endblock %}
